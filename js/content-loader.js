@@ -193,6 +193,7 @@ const ContentLoader = {
      */
     showApiContent() {
         document.querySelectorAll('.api-content').forEach(el => {
+            el.style.opacity = '1';
             el.classList.add('loaded');
         });
     },
