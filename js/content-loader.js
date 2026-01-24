@@ -192,6 +192,10 @@ const ContentLoader = {
      * Show all API content sections (removes hidden state)
      */
     showApiContent() {
+        // Clear fallback timer if it exists
+        if (this.fallbackTimer) {
+            clearTimeout(this.fallbackTimer);
+        }
         document.querySelectorAll('.api-content').forEach(el => {
             el.style.opacity = '1';
             el.classList.add('loaded');
@@ -790,6 +794,14 @@ const ContentLoader = {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Failsafe: show content after 3 seconds even if API fails
+    const fallbackTimer = setTimeout(() => {
+        ContentLoader.showApiContent();
+    }, 3000);
+
+    // Store timer so we can clear it if API succeeds quickly
+    ContentLoader.fallbackTimer = fallbackTimer;
+
     ContentLoader.init();
 });
 
