@@ -1,11 +1,7 @@
 /**
  * Shared Components - Common CTA and Footer for all pages
- * Uses localStorage caching for instant loading
+ * Loads settings from API
  */
-
-// Cache key and duration
-const SETTINGS_CACHE_KEY = 'otp_settings_cache_v2'; // v2 to invalidate old cache
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // Get API base URL
 function getApiBaseUrl() {
@@ -15,40 +11,11 @@ function getApiBaseUrl() {
     return 'https://onetimephotographyweb.pythonanywhere.com/api';
 }
 
-// Get cached settings or null
-function getCachedSettings() {
-    try {
-        const cached = localStorage.getItem(SETTINGS_CACHE_KEY);
-        if (cached) {
-            const { data, timestamp } = JSON.parse(cached);
-            // Return cached data (even if expired, for instant display)
-            return { data, isExpired: Date.now() - timestamp > CACHE_DURATION };
-        }
-    } catch (e) {
-        console.error('Cache read error:', e);
-    }
-    return null;
-}
-
-// Save settings to cache
-function cacheSettings(settings) {
-    try {
-        localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify({
-            data: settings,
-            timestamp: Date.now()
-        }));
-    } catch (e) {
-        console.error('Cache write error:', e);
-    }
-}
-
 // Fetch settings from API
 async function fetchSettings() {
     try {
         const response = await fetch(`${getApiBaseUrl()}/settings`);
-        const settings = await response.json();
-        cacheSettings(settings);
-        return settings;
+        return await response.json();
     } catch (error) {
         console.error('Error fetching settings:', error);
         return null;
@@ -75,7 +42,6 @@ function renderCTA(settings) {
 
 // Render Footer with settings
 function renderFooter(settings) {
-    // Find footer by tag or class
     const footerContainer = document.querySelector('footer');
     if (!footerContainer) return;
 
@@ -134,22 +100,11 @@ function updateWhatsAppButton(settings) {
 
 // Main initialization
 async function initSharedComponents() {
-    // Step 1: Try to render from cache immediately
-    const cached = getCachedSettings();
-    if (cached?.data) {
-        renderCTA(cached.data);
-        renderFooter(cached.data);
-        updateWhatsAppButton(cached.data);
-    }
-
-    // Step 2: Fetch fresh data from API
-    const freshSettings = await fetchSettings();
-
-    // Step 3: If we got fresh data and either had no cache or cache was expired, re-render
-    if (freshSettings && (!cached || cached.isExpired)) {
-        renderCTA(freshSettings);
-        renderFooter(freshSettings);
-        updateWhatsAppButton(freshSettings);
+    const settings = await fetchSettings();
+    if (settings) {
+        renderCTA(settings);
+        renderFooter(settings);
+        updateWhatsAppButton(settings);
     }
 }
 
