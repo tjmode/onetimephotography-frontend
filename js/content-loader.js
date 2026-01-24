@@ -117,33 +117,58 @@ const ContentLoader = {
      */
     async loadHomepage() {
         const data = await API.getHomepage();
-        if (!data) return;
 
-        // Hero section
-        if (data.hero) {
-            this.updateElement('.hero-title', data.hero.title);
-            this.updateElement('.hero-subtitle', data.hero.subtitle);
-            this.loadHeroSlides(data.hero.slides);
-        }
+        if (data) {
+            // Hero section
+            if (data.hero) {
+                this.updateElement('.hero-title', data.hero.title);
+                this.updateElement('.hero-subtitle', data.hero.subtitle);
+                this.loadHeroSlides(data.hero.slides);
+            }
 
-        // Brand statement
-        if (data.brandStatement) {
-            this.updateElement('.statement-text', data.brandStatement.text);
-            this.loadStats('.statement-details', data.brandStatement.stats);
-        }
+            // Brand statement
+            if (data.brandStatement) {
+                this.updateElement('.statement-text', data.brandStatement.text);
+                this.loadStats('.statement-details', data.brandStatement.stats);
+            }
 
-        // Why Choose OTP section (formerly Featured Story)
-        if (data.whyChooseOTP) {
-            this.loadWhyChooseOTP(data.whyChooseOTP);
-        }
+            // Why Choose OTP section (formerly Featured Story)
+            if (data.whyChooseOTP) {
+                this.loadWhyChooseOTP(data.whyChooseOTP);
+            }
 
-        // Selected Stories section header
-        if (data.selectedStories) {
-            this.updateElement('.selected-stories .section-title', data.selectedStories.title);
-            this.updateElement('.selected-stories .section-subtitle', data.selectedStories.subtitle);
-            const storiesBtn = document.querySelector('.selected-stories .section-cta .btn');
-            if (storiesBtn && data.selectedStories.buttonText) {
-                storiesBtn.textContent = data.selectedStories.buttonText;
+            // Selected Stories section header
+            if (data.selectedStories) {
+                this.updateElement('.selected-stories .section-title', data.selectedStories.title);
+                this.updateElement('.selected-stories .section-subtitle', data.selectedStories.subtitle);
+                const storiesBtn = document.querySelector('.selected-stories .section-cta .btn');
+                if (storiesBtn && data.selectedStories.buttonText) {
+                    storiesBtn.textContent = data.selectedStories.buttonText;
+                }
+            }
+
+            // What we capture section header
+            if (data.whatWeCapture) {
+                this.updateElement('.what-we-capture .section-title', data.whatWeCapture.title);
+                this.updateElement('.what-we-capture .section-subtitle', data.whatWeCapture.subtitle);
+                if (data.whatWeCapture.services) {
+                    this.loadCaptureCards('.capture-grid', data.whatWeCapture.services);
+                }
+            }
+
+            // Testimonials
+            if (data.testimonials) {
+                this.loadTestimonialsRedesigned(data.testimonials);
+            }
+
+            // CTA Section
+            if (data.cta) {
+                this.loadCTA(data.cta);
+            }
+
+            // Footer
+            if (data.footer) {
+                this.loadFooter(data.footer);
             }
         }
 
@@ -159,29 +184,17 @@ const ContentLoader = {
             }
         }
 
-        // What we capture section header
-        if (data.whatWeCapture) {
-            this.updateElement('.what-we-capture .section-title', data.whatWeCapture.title);
-            this.updateElement('.what-we-capture .section-subtitle', data.whatWeCapture.subtitle);
-            if (data.whatWeCapture.services) {
-                this.loadCaptureCards('.capture-grid', data.whatWeCapture.services);
-            }
-        }
+        // Show content after API load (or show fallback if API failed)
+        this.showApiContent();
+    },
 
-        // Testimonials
-        if (data.testimonials) {
-            this.loadTestimonialsRedesigned(data.testimonials);
-        }
-
-        // CTA Section
-        if (data.cta) {
-            this.loadCTA(data.cta);
-        }
-
-        // Footer
-        if (data.footer) {
-            this.loadFooter(data.footer);
-        }
+    /**
+     * Show all API content sections (removes hidden state)
+     */
+    showApiContent() {
+        document.querySelectorAll('.api-content').forEach(el => {
+            el.classList.add('loaded');
+        });
     },
 
     /**

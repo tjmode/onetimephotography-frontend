@@ -2520,3 +2520,15 @@ img[loading="lazy"]:not([data-src]) {
         font-size: 2rem;
     }
 }
+
+/* ============================================
+   API Content Loading States
+   ============================================ */
+.api-content {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.api-content.loaded {
+    opacity: 1;
+}
