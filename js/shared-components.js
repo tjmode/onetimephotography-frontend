@@ -75,10 +75,11 @@ function renderCTA(settings) {
 
 // Render Footer with settings
 function renderFooter(settings) {
-    const footerContainer = document.querySelector('.footer');
+    // Find footer by tag or class
+    const footerContainer = document.querySelector('footer');
     if (!footerContainer) return;
 
-    footerContainer.classList.add('footer-redesigned');
+    footerContainer.className = 'footer-redesigned';
     const social = settings?.social || {};
 
     footerContainer.innerHTML = `

@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(curl:*)",
+      "Bash(python:*)",
+      "Bash(lsof:*)",
+      "Bash(grep:*)",
+      "Bash(pip3 install:*)",
+      "Bash(xargs kill -9)",
+      "Bash(git init:*)",
+      "Bash(gh auth status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh repo view:*)",
+      "Bash(git push)"
+    ]
+  }
+}
