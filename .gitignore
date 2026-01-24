@@ -1,0 +1,17 @@
+# Backend (not deployed to Netlify)
+api-sample/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
