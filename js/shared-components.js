@@ -4,7 +4,7 @@
  */
 
 // Cache key and duration
-const SETTINGS_CACHE_KEY = 'otp_settings_cache';
+const SETTINGS_CACHE_KEY = 'otp_settings_cache_v2'; // v2 to invalidate old cache
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // Get API base URL
