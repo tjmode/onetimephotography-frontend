@@ -26,6 +26,7 @@ const ContentLoader = {
                 await this.loadAbout();
                 break;
             case 'stories':
+            case 'portfolio':
                 await this.loadStories();
                 break;
             case 'moments':

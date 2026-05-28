@@ -263,9 +263,10 @@ p {
     height: 100vh;
     min-height: 600px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     overflow: hidden;
+    padding-bottom: clamp(80px, 14vh, 160px);
 }
 
 .hero-slider {
@@ -290,9 +291,9 @@ p {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom,
-        rgba(31, 31, 31, 0.3) 0%,
-        rgba(31, 31, 31, 0.2) 50%,
-        rgba(31, 31, 31, 0.4) 100%
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.05) 45%,
+        rgba(0, 0, 0, 0.35) 100%
     );
 }
 
@@ -305,8 +306,12 @@ p {
 }
 
 .hero-title {
-    margin-bottom: 20px;
-    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.2);
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 22ch;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
 }
 
 .hero-subtitle {
@@ -315,6 +320,10 @@ p {
     letter-spacing: 0.25em;
     text-transform: uppercase;
     opacity: 0.9;
+    text-align: center;
+    margin: 0 auto;
+    max-width: none;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================
@@ -642,7 +651,7 @@ p {
    ============================================ */
 .footer {
     padding: 80px 24px 40px;
-    background-color: var(--charcoal);
+    background-color: #000000;
     color: var(--ivory);
 }
 
@@ -842,6 +851,33 @@ p {
 .whatsapp-float svg {
     width: 28px;
     height: 28px;
+    color: white;
+}
+
+.call-float {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background-color: #1f1f1f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 999;
+}
+
+.call-float:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.call-float svg {
+    width: 26px;
+    height: 26px;
     color: white;
 }
 
@@ -1306,7 +1342,7 @@ p {
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .page-header {
@@ -1323,6 +1359,18 @@ p {
     .whatsapp-float svg {
         width: 24px;
         height: 24px;
+    }
+
+    .call-float {
+        width: 48px;
+        height: 48px;
+        bottom: 76px;
+        right: 16px;
+    }
+
+    .call-float svg {
+        width: 22px;
+        height: 22px;
     }
 }
 
