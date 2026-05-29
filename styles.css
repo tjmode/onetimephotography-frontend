@@ -1961,7 +1961,7 @@ p {
    Footer Redesigned
    ============================================ */
 .footer-redesigned {
-    background: linear-gradient(to bottom, var(--charcoal) 0%, #2D2D2D 100%);
+    background: #000000;
     color: var(--ivory);
     padding: 80px 24px 40px;
 }
