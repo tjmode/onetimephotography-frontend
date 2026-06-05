@@ -27,7 +27,7 @@ function renderCTA(settings) {
     const ctaContainer = document.querySelector('.final-cta');
     if (!ctaContainer) return;
 
-    const whatsappNumber = settings?.whatsapp || '919876543210';
+    const whatsappNumber = settings?.whatsapp || '919047211002';
     ctaContainer.innerHTML = `
         <div class="container">
             <h2>Let's create something timeless.</h2>
@@ -78,7 +78,7 @@ function renderFooter(settings) {
                     <h4>Contact</h4>
                     <div class="footer-contact">
                         <p>${settings?.email || 'hello@onetimephotography.in'}</p>
-                        <p>${settings?.phone || '+91 98765 43210'}</p>
+                        <p>${settings?.phone || '+91 81240 66104'}</p>
                         <p>${settings?.location || 'Mumbai, Maharashtra, India'}</p>
                     </div>
                 </div>

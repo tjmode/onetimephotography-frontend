@@ -100,6 +100,14 @@ const ContentLoader = {
             link.href = `https://wa.me/${settings.whatsapp}`;
         });
 
+        // Update tel: links from settings.phone (strip spaces, keep leading +)
+        if (settings.phone) {
+            const telHref = 'tel:' + settings.phone.replace(/\s+/g, '');
+            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                link.href = telHref;
+            });
+        }
+
         // Update contact info in footer/header if needed
         this.updateElement('[data-content="email"]', settings.email);
         this.updateElement('[data-content="phone"]', settings.phone);

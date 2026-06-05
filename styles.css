@@ -365,7 +365,7 @@ p {
 }
 
 .story-image {
-    aspect-ratio: 4/5;
+    aspect-ratio: 3/4;
     overflow: hidden;
 }
 
@@ -373,7 +373,7 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center top;
     transition: transform var(--transition-slow), opacity var(--transition-medium);
 }
 
@@ -1455,7 +1455,7 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center top;
 }
 
 .featured-story-content {
