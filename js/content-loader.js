@@ -214,6 +214,11 @@ const ContentLoader = {
             <div class="hero-slide ${index === 0 ? 'active' : ''}"
                  style="background-image: url('${slide.image}')"></div>
         `).join('');
+
+        // Re-bind the auto-rotation to the new slide elements
+        if (typeof window.initHeroSlider === 'function') {
+            window.initHeroSlider();
+        }
     },
 
     /**

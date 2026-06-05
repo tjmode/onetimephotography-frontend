@@ -98,9 +98,19 @@ function initMobileMenu() {
 /* ============================================
    Hero Slider
    ============================================ */
+let heroSliderInterval = null;
 function initHeroSlider() {
+    // Clear any prior interval (we may be re-running after API replaced slides)
+    if (heroSliderInterval) {
+        clearInterval(heroSliderInterval);
+        heroSliderInterval = null;
+    }
+
     const slides = document.querySelectorAll('.hero-slide');
     if (slides.length <= 1) return;
+
+    // Reset active state to the first slide
+    slides.forEach((s, i) => s.classList.toggle('active', i === 0));
 
     let currentSlide = 0;
     const slideInterval = 6000; // 6 seconds
@@ -111,9 +121,9 @@ function initHeroSlider() {
         slides[currentSlide].classList.add('active');
     }
 
-    // Auto-advance slides
-    setInterval(nextSlide, slideInterval);
+    heroSliderInterval = setInterval(nextSlide, slideInterval);
 }
+window.initHeroSlider = initHeroSlider;
 
 /* ============================================
    Lazy Loading Images
