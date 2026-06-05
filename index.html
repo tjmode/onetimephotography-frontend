@@ -22,6 +22,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="otp-loader" aria-hidden="true">
+    <img src="images/logo.png" alt="" class="otp-loader-logo">
+    <div class="otp-loader-spinner"></div>
+</div>
+<script>
+(function(){
+    var el = document.getElementById('otp-loader');
+    var shown = false;
+    var t = setTimeout(function(){ shown = true; el.classList.add('otp-loader-visible'); }, 100);
+    window.__hideOTPLoader = function(){
+        clearTimeout(t);
+        if (!el || !el.parentNode) return;
+        if (!shown) { el.parentNode.removeChild(el); return; }
+        el.classList.add('otp-loader-hidden');
+        setTimeout(function(){ if (el.parentNode) el.parentNode.removeChild(el); }, 320);
+    };
+})();
+</script>
+
     <!-- Header -->
     <header class="header" id="header">
         <div class="header-container">

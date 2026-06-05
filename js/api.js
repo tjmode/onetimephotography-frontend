@@ -13,28 +13,64 @@ const API = {
         return 'https://onetimephotographyweb.pythonanywhere.com/api';
     })(),
 
+    cachePrefix: 'otp_cache_v1_',
+    cacheTTL: 24 * 60 * 60 * 1000,
+
+    _readCache(endpoint) {
+        try {
+            const raw = localStorage.getItem(this.cachePrefix + endpoint);
+            if (!raw) return null;
+            const entry = JSON.parse(raw);
+            if (Date.now() - entry.ts > this.cacheTTL) return null;
+            return entry.data;
+        } catch (e) { return null; }
+    },
+
+    _writeCache(endpoint, data) {
+        try {
+            localStorage.setItem(this.cachePrefix + endpoint, JSON.stringify({ data, ts: Date.now() }));
+        } catch (e) {}
+    },
+
+    async _rawFetch(endpoint, options = {}) {
+        const response = await fetch(`${this.baseURL}${endpoint}`, {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+        return await response.json();
+    },
+
     /**
-     * Generic fetch wrapper with error handling
+     * Generic fetch wrapper with error handling + stale-while-revalidate cache for GETs.
      */
     async fetch(endpoint, options = {}) {
-        try {
-            const response = await fetch(`${this.baseURL}${endpoint}`, {
-                ...options,
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options.headers
-                }
+        const method = (options.method || 'GET').toUpperCase();
+
+        if (method !== 'GET') {
+            try { return await this._rawFetch(endpoint, options); }
+            catch (error) {
+                console.error(`API fetch error for ${endpoint}:`, error);
+                return null;
+            }
+        }
+
+        const cached = this._readCache(endpoint);
+        const refresh = this._rawFetch(endpoint)
+            .then(data => { this._writeCache(endpoint, data); return data; })
+            .catch(error => {
+                console.error(`API fetch error for ${endpoint}:`, error);
+                return null;
             });
 
-            if (!response.ok) {
-                throw new Error(`API Error: ${response.status}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error(`API fetch error for ${endpoint}:`, error);
-            return null;
+        if (cached !== null) {
+            refresh.catch(() => {});
+            return cached;
         }
+        return await refresh;
     },
 
     /**

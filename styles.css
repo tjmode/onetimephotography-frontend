@@ -2582,3 +2582,38 @@ img[loading="lazy"]:not([data-src]) {
 .api-content.loaded {
     opacity: 1;
 }
+
+/* ============================================
+   Page Loader Overlay
+   ============================================ */
+#otp-loader {
+    position: fixed;
+    inset: 0;
+    background: #fafaf7;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 28px;
+    opacity: 1;
+    transition: opacity 280ms ease;
+}
+#otp-loader.otp-loader-visible { display: flex; }
+#otp-loader.otp-loader-hidden { opacity: 0; pointer-events: none; }
+.otp-loader-logo {
+    width: 84px;
+    height: auto;
+    opacity: 0.9;
+}
+.otp-loader-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(0,0,0,0.08);
+    border-top-color: #c9a96e;
+    border-radius: 50%;
+    animation: otp-loader-spin 850ms linear infinite;
+}
+@keyframes otp-loader-spin {
+    to { transform: rotate(360deg); }
+}

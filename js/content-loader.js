@@ -803,12 +803,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Failsafe: show content after 3 seconds even if API fails
     const fallbackTimer = setTimeout(() => {
         ContentLoader.showApiContent();
+        if (typeof window.__hideOTPLoader === 'function') window.__hideOTPLoader();
     }, 3000);
 
     // Store timer so we can clear it if API succeeds quickly
     ContentLoader.fallbackTimer = fallbackTimer;
 
-    ContentLoader.init();
+    ContentLoader.init().finally(() => {
+        clearTimeout(fallbackTimer);
+        if (typeof window.__hideOTPLoader === 'function') window.__hideOTPLoader();
+    });
 });
 
 // Export for use
