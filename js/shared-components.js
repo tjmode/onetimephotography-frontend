@@ -60,7 +60,7 @@ function renderFooter(settings) {
                     <nav class="footer-nav">
                         <a href="index.html">Home</a>
                         <a href="about.html">About</a>
-                        <a href="portfolio.html">Portfolio</a>
+                        <a href="https://onetimephotography.pixieset.com/" target="_blank" rel="noopener">Portfolio</a>
                         <a href="wedding-films.html">Wedding Film</a>
                         <a href="contact.html">Contact Us</a>
                     </nav>
