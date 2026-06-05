@@ -144,7 +144,8 @@
                 </div>
 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" name="wedding-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <form class="contact-form" name="wedding-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?success=1">
+                        <input type="hidden" name="form-name" value="wedding-enquiry">
                         <p hidden><label>Don't fill this out: <input name="bot-field" /></label></p>
                         <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 8px;" data-content="form-title">Tell Us About Your Wedding</h3>
                         <p style="font-size: 0.9375rem; margin-bottom: 32px; opacity: 0.8;" data-content="form-subtitle">Fill out the form below and we'll get back to you within 24-48 hours.</p>
