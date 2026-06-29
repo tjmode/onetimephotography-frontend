@@ -77,7 +77,7 @@ function renderFooter(settings) {
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <div class="footer-contact">
-                        <p>${settings?.email || 'hello@onetimephotography.in'}</p>
+                        <p>${settings?.email || 'hello@onetimephotography.com'}</p>
                         <p>${settings?.phone || '+91 81240 66104'}</p>
                         <p>${settings?.location || 'Mumbai, Maharashtra, India'}</p>
                     </div>
